@@ -1,7 +1,5 @@
 import { Component } from 'react';
-
 import './App.css';
-
 
 class App extends Component {
 
@@ -10,9 +8,7 @@ class App extends Component {
     this.state = {
       monsters: [],
       searchField: ''
-
     }
-
   }
 
   componentDidMount() {
@@ -21,6 +17,13 @@ class App extends Component {
       .then((users) => this.setState(() => {
         return { monsters: users }
       }));
+  }
+
+  onSearchChange=(event)=>{
+    const searchField = event.target.value.toLocaleLowerCase();
+    this.setState(() => {
+      return { searchField };
+    })
   }
 
   render() {
@@ -36,13 +39,7 @@ class App extends Component {
           className='search-box'
           type='search'
           placeholder='search monsters'
-          onChange={(event) => {
-            const searchField = event.target.value.toLocaleLowerCase();
-
-            this.setState(() => {
-              return { searchField }; 
-            })
-          }}
+          onChange={this.onSearchChange}
         />
         {
           filteredMonsters.map((monster) => {
